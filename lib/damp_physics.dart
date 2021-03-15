@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 /// Disables the bouncing underscroll effect present in IOS's ClampingScrollPhysics
 class NoBouncingUnderscrollPhysics extends ScrollPhysics {
   const NoBouncingUnderscrollPhysics({
-    ScrollPhysics parent,
+    ScrollPhysics? parent,
   }) : super(parent: parent);
 
   @override
-  NoBouncingUnderscrollPhysics applyTo(ScrollPhysics ancestor) {
+  NoBouncingUnderscrollPhysics applyTo(ScrollPhysics? ancestor) {
     return NoBouncingUnderscrollPhysics(parent: buildParent(ancestor));
   }
 
@@ -25,7 +25,7 @@ class NoBouncingUnderscrollPhysics extends ScrollPhysics {
         position.pixels < value) {
       // Overscroll
 
-      return parent.applyBoundaryConditions(position, value);
+      return parent!.applyBoundaryConditions(position, value);
     }
     if (value < position.minScrollExtent &&
         position.minScrollExtent < position.pixels) {
@@ -35,7 +35,7 @@ class NoBouncingUnderscrollPhysics extends ScrollPhysics {
     if (position.pixels < position.maxScrollExtent &&
         position.maxScrollExtent < value) {
       // Hit bottom edge
-      return parent.applyBoundaryConditions(position, value);
+      return parent!.applyBoundaryConditions(position, value);
     }
     return 0.0;
   }
@@ -43,11 +43,11 @@ class NoBouncingUnderscrollPhysics extends ScrollPhysics {
 
 /// Disables the bouncing overscroll effect present in IOS's ClampingScrollPhysics
 class NoBouncingOverscrollPhysics extends ScrollPhysics {
-  const NoBouncingOverscrollPhysics({ScrollPhysics parent})
+  const NoBouncingOverscrollPhysics({ScrollPhysics? parent})
       : super(parent: parent);
 
   @override
-  NoBouncingOverscrollPhysics applyTo(ScrollPhysics ancestor) {
+  NoBouncingOverscrollPhysics applyTo(ScrollPhysics? ancestor) {
     return NoBouncingOverscrollPhysics(parent: buildParent(ancestor));
   }
 
@@ -57,7 +57,7 @@ class NoBouncingOverscrollPhysics extends ScrollPhysics {
     if (value < position.pixels &&
         position.pixels <= position.minScrollExtent) {
       // Underscroll
-      return parent.applyBoundaryConditions(position, value);
+      return parent!.applyBoundaryConditions(position, value);
     }
     if (position.maxScrollExtent <= position.pixels &&
         position.pixels < value) {
@@ -68,7 +68,7 @@ class NoBouncingOverscrollPhysics extends ScrollPhysics {
     if (value < position.minScrollExtent &&
         position.minScrollExtent < position.pixels) {
       // Hit top edge
-      return parent.applyBoundaryConditions(position, value);
+      return parent!.applyBoundaryConditions(position, value);
     }
     if (position.pixels < position.maxScrollExtent &&
         position.maxScrollExtent < value) {
